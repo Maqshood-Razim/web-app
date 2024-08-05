@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 800px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .table {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .button, .button2, .delete, .edit {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+        .button {
+            background-color: #4CAF50;
+        }
+        .button:hover, .button2:hover, .delete:hover, .edit:hover {
+            opacity: 0.9;
+        }
+        .button2 {
+            background-color: #215bc8;
+        }
+        .delete {
+            background-color: #d81818;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        .edit {
+            background-color: #e5db14;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        .logout {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .create {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .search {
+            width: 100%;
+            max-width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .search::placeholder {
+            color: #aaa;
+        }
+        .search:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .actions a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Home</h1>
+        <h2>User List</h2>
+        <div class="create">
+            <form action="/search" method="get">
+                <input type="search" name="query" class="search" placeholder="Search...">
+                <input type="submit" value="Search" class="button">
+            </form>
+            <a href="/create" class="button2">Create</a>
+        </div>
+        <div class="table">
+            <table id="userTable">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>G-Mail</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .Users}}
+                    <tr>
+                        <td class="row-id"></td>
+                        <td>{{.Username}}</td>
+                        <td>{{.Password}}</td>
+                        <td>{{.Gmail}}</td>
+                        <td class="actions">
+                            <form action="/delete/{{.ID}}" method="post" style="display:inline;">
+                                <input type="submit" value="Delete" class="delete">
+                            </form>
+                            <a href="/edit/{{.ID}}" class="edit">Edit</a>
+                        </td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+        <div class="logout">
+            <a href="/logout" class="button">Logout</a>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rows = document.querySelectorAll('#userTable .row-id');
+            rows.forEach((row, index) => {
+                row.textContent = index + 1;
+            });
+        });
+    </script>
+
+</body>
+</html>

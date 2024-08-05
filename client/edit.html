@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        label, input {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        input[type="text"], input[type="password"] ,input[type="email"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input[type="text"]:focus, input[type="password"]:focus , input[type="email"]:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        a {
+            margin-top: 10px;
+            text-decoration: none;
+            color: #4CAF50;
+            text-align: center;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    
+        .error{
+            color: red;
+            text-align: center;
+            margin-bottom:9px ;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit User</h1>
+
+        <form action="/edit/{{.ID}}" method="post">
+            
+            <input type="text" id="username" name="username" value="{{.Username}}" required>
+            <br>
+           
+            <input type="email" id="gmail" name="gmail" placeholder="G-Mail" value="{{.Gmail}}" required>
+            <br>
+           
+            <input type="password" id="password" name="password" value="{{.Password}}" required>
+            <br>
+            <input type="submit" value="Update">
+        </form>
+        <a href="/adminhome">Back to User List</a>
+    </div>
+</body>
+</html>
